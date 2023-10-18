@@ -12,7 +12,7 @@ const Home = () => {
             tool for modern wiorld to
             discove, create and share creative prompts
         </p>
-
+        hello
         <Feed />
     </section>
   )
