@@ -28,6 +28,14 @@ const Login = () => {
         })
         const data = await response.json();
         console.log(data);
+
+        const response2 = await fetch('/api/user/auth',{
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json'}
+        })
+        const data2 = await response2.json();
+        console.log(data2);
+
     }
 
   return (
@@ -36,7 +44,7 @@ const Login = () => {
         padding : '1rem',
         display : 'flex',
         flexDirection : 'column',
-    }} > 
+    }} >
         <div  style={{
             display:'flex',
             flexDirection: 'column',

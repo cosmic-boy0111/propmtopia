@@ -1,13 +1,13 @@
 import connectToDB from "@utils/database";
-import { NextResponse } from "next/server";
 import User from "@models/user";
+import { serialize } from "cookie";
 
 export const GET = async (req,res) => {
 
     await connectToDB();
     return new Response(JSON.stringify({
         message : "Hello world"
-    }), { statusCode : 500 })
+    }), { status : 500 })
 
 }
 
@@ -17,9 +17,21 @@ export const POST = async (req, res) => {
 
         const data = await req.json();
         const user = await User.create(data);
-        return new Response(JSON.stringify(user), { statusCode : 200 });
+        // await User.encryptPassword();
+        const token = await user.generateAuthToken()
+
+        const serialized = serialize('jwToken', token, {
+            httpOnly : true,
+            path : '/',
+            maxAge : 60 * 60 * 24 * 30
+        });
+
+        return new Response(JSON.stringify(data), { 
+            status : 200,
+            headers : {'Set-Cookie': serialized}
+        });
 
     } catch (error) {
-        return new Response(JSON.stringify(error), { statusCode : 500 })
+        return new Response(JSON.stringify(error), { status : 500 })
     }
 }
