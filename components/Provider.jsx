@@ -1,12 +1,27 @@
 "use client";
 
-import { SessionProvider } from 'next-auth/react'
+import { createContext, useState, useEffect } from "react";
+export const AppContext = createContext();
 
-const Provider = ({children, session}) => {
+const Provider = ({children}) => {
+
+    const [rootUser, setRootUser] = useState(null);
+
+    const getRootUser = async () => {
+        // getting the root user
+    }
+
+    useEffect(() => {
+        getRootUser();
+    }, [])
+    
+
   return (
-    <SessionProvider session={session} >
+    <AppContext.Provider value={{
+        rootUser
+    }}>
         {children}
-    </SessionProvider>
+    </AppContext.Provider>
   )
 }
 
