@@ -21,6 +21,10 @@ export const GET = async (req, res) => {
         return new Response(JSON.stringify(rootUser), { status: 200 })
 
     } catch (error) {
-        console.log(error);
+        return new Response(JSON.stringify({
+            message : 'Invalid credentials'
+        }),{
+            status : 500
+        })
     }
 }
