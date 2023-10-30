@@ -9,7 +9,24 @@ import { AppContext } from './Provider';
 
 const Nav = () => {
 
-    const {rootUser} = useContext(AppContext);
+    const {rootUser, setRootUser} = useContext(AppContext);
+
+    const deleteAccount = async () => {
+        const response = await fetch('/api/user/delete-account',{
+            method : 'POST',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify({
+                id : rootUser._id
+            })
+        })
+        const data = await response.json();
+        console.log(data);
+        if(response.status === 200){
+            setRootUser(null)
+        }
+    }
 
   return (
     <nav className="flex-between w-full mb-16 pt-3" >
@@ -32,10 +49,10 @@ const Nav = () => {
                     >
                         Create Post
                     </Link>
-                    <button type='button'
+                    <button onClick={deleteAccount} type='button'
                         className='outline_btn'
                     >
-                        Sign Out
+                        Delete Account
                     </button>
                     <Link href={'/profile'} >
                         <Image 

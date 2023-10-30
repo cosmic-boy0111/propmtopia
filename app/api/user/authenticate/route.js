@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 import { cookies } from 'next/headers';
 
 export const GET = async (req, res) => {
+
     try {
 
         await connectToDB();
@@ -19,8 +20,8 @@ export const GET = async (req, res) => {
         }
 
         return new Response(JSON.stringify(rootUser), { status: 200 })
-
+        
     } catch (error) {
-        console.log(error);
+        return new Response(JSON.stringify(error), { status: 500 })
     }
 }
