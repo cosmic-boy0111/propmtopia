@@ -17,7 +17,7 @@ export const POST = async (req, res) => {
 
         const data = await req.json();
         const user = await User.create(data);
-        await user.encryptPassword();
+        // await User.encryptPassword();
         const token = await user.generateAuthToken()
 
         const serialized = serialize('jwToken', token, {
@@ -26,9 +26,7 @@ export const POST = async (req, res) => {
             maxAge : 60 * 60 * 24 * 30
         });
 
-        return new Response(JSON.stringify({
-            message : "user login successfuly",
-        }), { 
+        return new Response(JSON.stringify(data), { 
             status : 200,
             headers : {'Set-Cookie': serialized}
         });
