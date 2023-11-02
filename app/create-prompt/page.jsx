@@ -25,7 +25,7 @@ const CreatePrompt = () => {
       
         await Api._prompt._create({
           prompt : post.prompt,
-          userId : rootUser._id,
+          userId : rootUser?._id,
           tag : post.tag
         }).then((response)=>{
           console.log(response);

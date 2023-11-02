@@ -14,7 +14,7 @@ const Nav = () => {
 
     const deleteAccount = async () => {
 
-        await Api._user._delete(rootUser._id).then((response)=>{
+        await Api._user._delete(rootUser?._id).then((response)=>{
             console.log(response);
             if(response.status === 200){
                 setRootUser(null)
@@ -59,7 +59,7 @@ const Nav = () => {
                             border : '1px solid gray',
                             borderRadius : '20px'
                         }}>
-                            {rootUser.name[0]}
+                            {rootUser?.name[0]}
                         </div>
                     </Link>
                 </div> :  

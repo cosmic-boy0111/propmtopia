@@ -23,7 +23,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
     <div className='prompt_card'>
 
       <div className='flex justify-between items-start gap-5' >
-        <Link href={rootUser._id === post.creator._id ? '/profile' : `/profile/${post.creator._id}?name=${post.creator.name}`}>
+        <Link href={rootUser?._id === post.creator._id ? '/profile' : `/profile/${post.creator._id}?name=${post.creator.name}`}>
           <div className='flex-1 flex justify-start items-center gap-3 cursor-pointer'>
            
               <div className='blue_gradient' style={{
