@@ -8,6 +8,7 @@ import { Api } from '@utils/api'
 
 const MyProfile = () => {
 
+    const router = useRouter();
     const {rootUser} = useContext(AppContext);
     const [posts, setPosts] = useState([])
 
@@ -24,12 +25,27 @@ const MyProfile = () => {
 
     }, [rootUser])
 
-    const handleEdit = () => {
-
+    const handleEdit = (post) => {
+        console.log(post);
+        router.push(`/update-prompt?id=${post._id}`)
     }
 
-    const handleDelete = async () => {
+    const handleDelete = async (post) => {
+        const hasConfirm = confirm("Are you sure you want to delete")
+        if(hasConfirm){
+            try {
 
+                await Api._prompt._delete(post._id).then((response) => {
+                    if(response.status === 200){
+                        const filteredPosts = posts.filter(p => p._id !== post._id);
+                        setPosts(filteredPosts);
+                    }
+                })
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
   return (

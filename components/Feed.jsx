@@ -6,7 +6,7 @@ import { Api } from '@utils/api'
 const PromptCardList = ({ data, handleTagClick }) => {
   return <>
     <div className='mt-16 prompt_layout' >
-      {data.map((post)=>{
+      {data?.map((post)=>{
         return <PromptCard 
           key={post._id}
           post={post}
@@ -31,7 +31,7 @@ const Feed = () => {
     const fetchPosts = async () => {
       await Api._prompt._getAll().then((response)=>{
         console.log(response.data);
-        setPosts(response.data);
+        if(response.status === 200) setPosts(response.data);
       })
     }
 

@@ -13,24 +13,8 @@ const Nav = () => {
     const {rootUser, setRootUser} = useContext(AppContext);
 
     const deleteAccount = async () => {
-        // const response = await fetch('/api/user/delete-account',{
-        //     method : 'POST',
-        //     headers : {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body : JSON.stringify({
-        //         id : rootUser._id
-        //     })
-        // })
-        // const data = await response.json();
-        // console.log(data);
-        // if(response.status === 200){
-        //     setRootUser(null)
-        // }
 
-        await Api._user._delete({
-            id : rootUser._id
-        }).then((response)=>{
+        await Api._user._delete(rootUser._id).then((response)=>{
             console.log(response);
             if(response.status === 200){
                 setRootUser(null)

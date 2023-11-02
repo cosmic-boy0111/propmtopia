@@ -2,12 +2,11 @@ import connectToDB from "@utils/database";
 import User from "@models/user";
 import { cookies } from 'next/headers';
 
-export const POST = async (req, res) => {
+export const DELETE = async (req, {params}) => {
     try {
         await connectToDB();
-        const { id } = await req.json();
 
-        await User.deleteOne({_id : id});
+        await User.findByIdAndRemove(params.id);
         const cookieStore = cookies();
         cookieStore.delete('jwToken')
 

@@ -25,14 +25,6 @@ const Login = () => {
 
         console.log('under submit')
 
-        // const response = await fetch('/api/user/login',{
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json'},
-        //     body: JSON.stringify(user)
-        // })
-        // const data = await response.json();
-        // console.log(data);
-
         await Api._user._create(user).then((response)=>{
             console.log(response);
             if(response.status === 200){
