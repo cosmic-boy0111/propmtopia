@@ -6,10 +6,22 @@ import Image from 'next/image'
 import { useState, useEffect, useContext } from 'react'
 
 import { AppContext } from './Provider';
+import { Api } from '@utils/api';
 
 const Nav = () => {
 
-    const {rootUser} = useContext(AppContext);
+    const {rootUser, setRootUser} = useContext(AppContext);
+
+    const deleteAccount = async () => {
+
+        await Api._user._delete(rootUser._id).then((response)=>{
+            console.log(response);
+            if(response.status === 200){
+                setRootUser(null)
+            }
+        })
+
+    }
 
   return (
     <nav className="flex-between w-full mb-16 pt-3" >
@@ -32,19 +44,23 @@ const Nav = () => {
                     >
                         Create Post
                     </Link>
-                    <button type='button'
+                    <button onClick={deleteAccount} type='button'
                         className='outline_btn'
                     >
-                        Sign Out
+                        Delete Account
                     </button>
                     <Link href={'/profile'} >
-                        <Image 
-                            src="/assets/images/logo.svg"
-                            width={37}
-                            height={37}
-                            className='rounded-full' 
-                            alt='profile'
-                        />
+                        <div className='blue_gradient' style={{
+                            width : '40px',
+                            height : '40px',
+                            display : 'flex',
+                            justifyContent : 'center',
+                            alignItems : 'center',
+                            border : '1px solid gray',
+                            borderRadius : '20px'
+                        }}>
+                            {rootUser.name[0]}
+                        </div>
                     </Link>
                 </div> :  
                 <Link href={'/create-account'} >

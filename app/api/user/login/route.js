@@ -27,7 +27,7 @@ export const POST = async (req, res) => {
         });
 
         return new Response(JSON.stringify({
-            message : "user login successfuly",
+            message : 'user login successfully'
         }), { 
             status : 200,
             headers : {'Set-Cookie': serialized}
