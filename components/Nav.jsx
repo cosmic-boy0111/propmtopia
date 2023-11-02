@@ -50,13 +50,17 @@ const Nav = () => {
                         Delete Account
                     </button>
                     <Link href={'/profile'} >
-                        <Image 
-                            src="/assets/images/logo.svg"
-                            width={37}
-                            height={37}
-                            className='rounded-full' 
-                            alt='profile'
-                        />
+                        <div className='blue_gradient' style={{
+                            width : '40px',
+                            height : '40px',
+                            display : 'flex',
+                            justifyContent : 'center',
+                            alignItems : 'center',
+                            border : '1px solid gray',
+                            borderRadius : '20px'
+                        }}>
+                            {rootUser.name[0]}
+                        </div>
                     </Link>
                 </div> :  
                 <Link href={'/create-account'} >
