@@ -1,7 +1,11 @@
 'use client'
+import { Api } from '@utils/api'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const Login = () => {
+
+    const router = useRouter();
 
     const [user, setUser] = useState({
         name : '',
@@ -21,13 +25,20 @@ const Login = () => {
 
         console.log('under submit')
 
-        const response = await fetch('/api/user/login',{
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(user)
+        // const response = await fetch('/api/user/login',{
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json'},
+        //     body: JSON.stringify(user)
+        // })
+        // const data = await response.json();
+        // console.log(data);
+
+        await Api._user._create(user).then((response)=>{
+            console.log(response);
+            if(response.status === 200){
+                router.push('/')
+            }
         })
-        const data = await response.json();
-        console.log(data);
 
     }
 

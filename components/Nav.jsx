@@ -6,26 +6,37 @@ import Image from 'next/image'
 import { useState, useEffect, useContext } from 'react'
 
 import { AppContext } from './Provider';
+import { Api } from '@utils/api';
 
 const Nav = () => {
 
     const {rootUser, setRootUser} = useContext(AppContext);
 
     const deleteAccount = async () => {
-        const response = await fetch('/api/user/delete-account',{
-            method : 'POST',
-            headers : {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify({
-                id : rootUser._id
-            })
+        // const response = await fetch('/api/user/delete-account',{
+        //     method : 'POST',
+        //     headers : {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body : JSON.stringify({
+        //         id : rootUser._id
+        //     })
+        // })
+        // const data = await response.json();
+        // console.log(data);
+        // if(response.status === 200){
+        //     setRootUser(null)
+        // }
+
+        await Api._user._delete({
+            id : rootUser._id
+        }).then((response)=>{
+            console.log(response);
+            if(response.status === 200){
+                setRootUser(null)
+            }
         })
-        const data = await response.json();
-        console.log(data);
-        if(response.status === 200){
-            setRootUser(null)
-        }
+
     }
 
   return (
